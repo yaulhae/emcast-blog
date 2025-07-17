@@ -6,8 +6,12 @@ export interface Post {
   title: string;
   body: string;
   tags: string[];
-  reactions: number;
+  reactions: {
+    likes: number;
+    dislikes: number;
+  }; // ✅ 이렇게 수정
   userId: number;
+  createdAt?: string;
 }
 
 export interface GetPostsResponse {
@@ -43,4 +47,9 @@ export const fetchPostsBySearch = async (
     `https://dummyjson.com/posts/search?q=${query}&limit=${limit}&skip=${skip}`
   );
   return response.data; // { posts, total, skip, limit }
+};
+
+export const getPostById = async (id: number): Promise<Post> => {
+  const res = await axios.get(`https://dummyjson.com/posts/${id}`);
+  return res.data;
 };
