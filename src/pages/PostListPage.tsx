@@ -1,15 +1,20 @@
 import { Container, Pagination } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as React from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PostHeader } from '../components/post/PostHeader';
 import PostMain from '../components/post/PostMain';
 import { useSearchPostsQuery } from '../hooks/usePostsQuery';
 
 export default function PostListPage() {
-  const [page, setPage] = React.useState(1);
-  const [searchInput, setSearchInput] = React.useState('');
-  const [query, setQuery] = React.useState('');
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query') || '';
+  const page = parseInt(searchParams.get('page') || '1', 10);
+
   const { data, isLoading, isError } = useSearchPostsQuery(query, page);
+  const [searchInput, setSearchInput] = React.useState(query);
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(
     null
   );
@@ -17,20 +22,23 @@ export default function PostListPage() {
   const postsPerPage = 6;
   const pagedPosts = data?.posts || [];
   const pageCount = Math.ceil((data?.total || 0) / postsPerPage);
+
   const handleSearch = () => {
-    setQuery(searchInput);
-    setPage(1);
+    setSearchParams({ query, page: '1' }); // 기본 검색
   };
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      setQuery(searchInput);
-      setPage(1);
+      navigate(`?query=${searchInput}&page=1`);
     }
   };
 
   const handleSearchClick = () => {
-    handleSearch();
+    navigate(`?query=${searchInput}&page=1`);
+  };
+
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    navigate(`?query=${query}&page=${value}`);
   };
 
   const handleFocus = (index: number) => setFocusedCardIndex(index);
@@ -59,11 +67,7 @@ export default function PostListPage() {
         onBlur={handleBlur}
       />
       <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4 }}>
-        <Pagination
-          count={pageCount}
-          page={page}
-          onChange={(_, value) => setPage(value)}
-        />
+        <Pagination count={pageCount} page={page} onChange={handlePageChange} />
       </Box>
     </Container>
   );
