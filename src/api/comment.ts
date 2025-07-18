@@ -6,7 +6,7 @@ export const getCommentsByPostId = async (
   postId: number
 ): Promise<Comment[]> => {
   const res = await axios.get(
-    `https://blog-db-json.onrender.com/comments?postId=${postId}&_sort=createdAt&_order=desc`
+    `http://localhost:3001/comments?postId=${postId}&_sort=createdAt&_order=desc`
   );
   return res.data;
 };
@@ -14,7 +14,7 @@ export const getCommentsByPostId = async (
 export const createComment = async (
   comment: Omit<Comment, 'id' | 'createdAt'>
 ): Promise<Comment> => {
-  const res = await axios.post(`https://blog-db-json.onrender.com/comments`, {
+  const res = await axios.post(`http://localhost:3001/comments`, {
     ...comment,
     createdAt: new Date().toISOString()
   });
@@ -22,5 +22,5 @@ export const createComment = async (
 };
 
 export const deleteComment = async (id: number): Promise<void> => {
-  await axios.delete(`https://blog-db-json.onrender.com/comments/${id}`);
+  await axios.delete(`http://localhost:3001/comments/${id}`);
 };

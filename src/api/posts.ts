@@ -3,7 +3,7 @@ import axios from 'axios';
 import { GetPostsResponse, Post } from '../types/post';
 
 // JSON-SERVER API BASE
-const API_BASE_URL = 'https://blog-db-json.onrender.com';
+const API_BASE_URL = 'http://localhost:3001';
 
 // 검색 기반 게시글 조회
 export const fetchPostsBySearch = async (

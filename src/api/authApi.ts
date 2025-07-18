@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { LoginPayload } from '../types/auth';
 
-const API_URL = 'https://blog-db-json.onrender.com'; // json-server 실행 주소
+const API_URL = 'http://localhost:3001'; // json-server 실행 주소
 
 export const registerUser = async (data: {
   name: string;

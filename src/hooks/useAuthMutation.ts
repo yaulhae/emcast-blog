@@ -10,7 +10,7 @@ import {
 import { useAuthStore } from '../stores/authStore';
 import { LoginPayload, RegisterPayload } from '../types/auth';
 
-const API_URL = 'https://blog-db-json.onrender.com';
+const API_URL = 'http://localhost:3001';
 
 export function useRegister() {
   const navigate = useNavigate();
