@@ -20,7 +20,7 @@ export default function PostDetailPage() {
     isError
   } = useQuery<Post>({
     queryKey: ['post', id],
-    queryFn: () => getPostById(Number(id)),
+    queryFn: () => getPostById(id!),
     enabled: !!id
   });
 

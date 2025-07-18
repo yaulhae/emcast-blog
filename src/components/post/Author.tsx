@@ -1,10 +1,11 @@
 import { Avatar, AvatarGroup, Box, Typography } from '@mui/material';
 
-export function Author({
-  authors
-}: {
+interface AuthorProps {
   authors: { name: string; avatar: string }[];
-}) {
+  createdAt?: string;
+}
+
+export function Author({ authors, createdAt }: AuthorProps) {
   return (
     <Box
       sx={{
@@ -38,7 +39,16 @@ export function Author({
           {authors.map((author) => author.name).join(', ')}
         </Typography>
       </Box>
-      <Typography variant='caption'>July 14, 2021</Typography>
+      <Typography variant='caption'>
+        {' '}
+        {createdAt
+          ? new Date(createdAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            })
+          : ''}
+      </Typography>
     </Box>
   );
 }

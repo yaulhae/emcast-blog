@@ -1,6 +1,7 @@
 // src/routes/AppRoutes.tsx
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../components/common/ProtectedRoute';
+import PostCreatePage from '../pages/PostCreatePage';
 import PostDetailPage from '../pages/PostDetailPage';
 import PostListPage from '../pages/PostListPage';
 import SignInPage from '../pages/SignInPage';
@@ -22,6 +23,14 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <PostDetailPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/posts/create'
+        element={
+          <ProtectedRoute>
+            <PostCreatePage />
           </ProtectedRoute>
         }
       />

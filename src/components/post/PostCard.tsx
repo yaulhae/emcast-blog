@@ -170,6 +170,7 @@ export default function PostCard({
               avatar: `/static/images/avatar/${(post.userId % 8) + 1}.jpg`
             }
           ]}
+          createdAt={post.createdAt}
         />
       </Card>
     </Link>

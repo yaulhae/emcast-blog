@@ -31,7 +31,7 @@ export const fetchPosts = async (
 ): Promise<GetPostsResponse> => {
   const skip = (page - 1) * limit;
   const res = await axios.get<Post[]>(
-    `${API_BASE_URL}/posts?_start=${skip}&_limit=${limit}`
+    `${API_BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${skip}&_limit=${limit}`
   );
   const totalRes = await axios.get<Post[]>(`${API_BASE_URL}/posts`);
   return {
@@ -56,7 +56,7 @@ export const fetchPostsBySearch = async (
 ): Promise<GetPostsResponse> => {
   const skip = (page - 1) * limit;
   const res = await axios.get<Post[]>(
-    `${API_BASE_URL}/posts?q=${query}&_start=${skip}&_limit=${limit}`
+    `${API_BASE_URL}/posts?q=${query}&_sort=-createdAt&_order=desc&_start=${skip}&_limit=${limit}`
   );
   const totalRes = await axios.get<Post[]>(`${API_BASE_URL}/posts?q=${query}`);
   return {
@@ -68,13 +68,13 @@ export const fetchPostsBySearch = async (
 };
 
 // 게시글 ID로 조회
-export const getPostById = async (id: number): Promise<Post> => {
+export const getPostById = async (id: string | number): Promise<Post> => {
   const res = await axios.get<Post>(`${API_BASE_URL}/posts/${id}`);
   return res.data;
 };
 
 // 게시글 삭제
-export const deletePost = async (id: number) => {
+export const deletePost = async (id: string | number) => {
   const res = await axios.delete(`${API_BASE_URL}/posts/${id}`);
   if (res.status !== 200) {
     throw new Error('게시글 삭제 실패');
