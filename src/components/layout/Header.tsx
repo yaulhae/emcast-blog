@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 import SitemarkIcon from '../post/SitemarkIcon';
 
@@ -87,10 +88,22 @@ export default function Header() {
               alignItems: 'center'
             }}
           >
-            <Button color='primary' variant='text' size='small'>
+            <Button
+              component={Link}
+              to='/sign-in'
+              color='primary'
+              variant='text'
+              size='small'
+            >
               Sign in
             </Button>
-            <Button color='primary' variant='contained' size='small'>
+            <Button
+              component={Link}
+              to='/sign-up'
+              color='primary'
+              variant='contained'
+              size='small'
+            >
               Sign up
             </Button>
             <ColorModeIconDropdown />

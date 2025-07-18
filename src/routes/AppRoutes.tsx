@@ -1,13 +1,17 @@
 // src/routes/AppRoutes.tsx
-import { Routes, Route } from 'react-router-dom';
-import PostListPage from '../pages/PostListPage';
+import { Route, Routes } from 'react-router-dom';
 import PostDetailPage from '../pages/PostDetailPage';
+import PostListPage from '../pages/PostListPage';
+import SignInPage from '../pages/SignInPage';
+import SignUpPage from '../pages/SignUpPage';
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<PostListPage />} />
-      <Route path="/posts/:id" element={<PostDetailPage />} />
+      <Route path='/' element={<PostListPage />} />
+      <Route path='/posts/:id' element={<PostDetailPage />} />
+      <Route path='/sign-in' element={<SignInPage />} />
+      <Route path='/sign-up' element={<SignUpPage />} />
     </Routes>
-  )
+  );
 }

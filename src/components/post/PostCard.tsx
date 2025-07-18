@@ -21,7 +21,13 @@ export default function PostCard({
   onBlur
 }: Props) {
   return (
-    <Link to={`/posts/${post.id}`} style={{ textDecoration: 'none' }}>
+    <Link
+      to={`/posts/${post.id}`}
+      onClick={() => {
+        sessionStorage.setItem('scrollY', window.scrollY.toString());
+      }}
+      style={{ textDecoration: 'none' }}
+    >
       <Card
         tabIndex={0}
         onFocus={onFocus}
