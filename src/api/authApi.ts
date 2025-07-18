@@ -25,3 +25,13 @@ export const loginUser = async (data: LoginPayload) => {
 
   return res.data[0]; // 첫 번째 유저 정보 반환
 };
+
+export const checkDuplicateEmail = async (email: string) => {
+  const res = await axios.get(`${API_URL}/users`, { params: { email } });
+  return res.data.length > 0;
+};
+
+export const checkDuplicateName = async (name: string) => {
+  const res = await axios.get(`${API_URL}/users`, { params: { name } });
+  return res.data.length > 0;
+};

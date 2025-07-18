@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuthStore } from '../../stores/authStore';
 
 export default function ProtectedRoute() {
-  const { user, isInitialized } = useAuth();
+  const { user, isInitialized } = useAuthStore();
 
   if (!isInitialized) {
     return null; // 혹은 로딩 UI

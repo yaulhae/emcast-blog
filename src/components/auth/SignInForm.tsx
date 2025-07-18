@@ -1,84 +1,53 @@
-// components/auth/SignInForm.tsx
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button } from '@mui/material';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useLogin } from '../../hooks/useAuthMutation';
+
+import { SignInFormValues, signInSchema } from '../../schemas/auth.schema';
 import AuthTextField from './AuthTextField';
 
 export default function SignInForm() {
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting }
+  } = useForm<SignInFormValues>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: { email: '', password: '' }
+  });
+
   const loginMutation = useLogin();
-
-  const [emailError, setEmailError] = useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-
-  const validateInputs = (form: FormData) => {
-    const email = form.get('email') as string;
-    const password = form.get('password') as string;
-
-    let isValid = true;
-
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
-
-    if (!password || password.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
-
-    return isValid;
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-
-    if (!validateInputs(form)) return;
-
-    const email = form.get('email') as string;
-    const password = form.get('password') as string;
-
-    loginMutation.mutate({ email, password });
+  const onSubmit = (data: SignInFormValues) => {
+    loginMutation.mutate(data);
   };
 
   return (
     <Box
       component='form'
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       noValidate
       sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}
     >
       <AuthTextField
-        id='email'
-        label='Email'
         name='email'
+        label='Email'
         type='email'
-        placeholder='your@email.com'
-        error={emailError}
-        helperText={emailErrorMessage}
+        control={control}
       />
-
       <AuthTextField
-        id='password'
-        label='Password'
         name='password'
+        label='Password'
         type='password'
-        placeholder='••••••'
-        error={passwordError}
-        helperText={passwordErrorMessage}
+        control={control}
       />
 
-      <Button type='submit' fullWidth variant='contained' sx={{ mt: 2 }}>
+      <Button
+        type='submit'
+        fullWidth
+        variant='contained'
+        sx={{ mt: 2 }}
+        disabled={isSubmitting}
+      >
         {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
       </Button>
     </Box>

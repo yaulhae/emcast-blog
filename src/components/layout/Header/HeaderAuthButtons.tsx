@@ -1,10 +1,9 @@
 import { Button, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
+import { useAuthStore } from '../../../stores/authStore';
 
 export default function HeaderAuthButtons() {
-  const user = useAuth((state) => state.user);
-  const clearUser = useAuth((state) => state.clearUser);
+  const { user, clearUser } = useAuthStore();
   const navigate = useNavigate();
 
   const onClickLogoutButton = () => {
@@ -21,7 +20,7 @@ export default function HeaderAuthButtons() {
           variant='body2'
           sx={{ color: 'text.primary', fontWeight: 500 }}
         >
-          Hello, {user.name}
+          Hello {user.name}
         </Typography>
         <Button
           color='error'

@@ -4,17 +4,18 @@ import * as React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PostHeader } from '../components/post/PostHeader';
 import PostMain from '../components/post/PostMain';
-import { useAuth } from '../hooks/useAuth';
 import { useSearchPostsQuery } from '../hooks/usePostsQuery';
-import { canCreatePost } from '../utils/permission';
+import { useAuthStore } from '../stores/authStore';
+import { isUserOrAdmin } from '../utils/permission';
 
 export default function PostListPage() {
-  const user = useAuth((state) => state.user);
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-
+  const user = useAuthStore((state) => state.user);
+  const [searchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
+  //mui의 페이지네이션 컴포넌트가 page 프롭스를 number로 지정해둠
   const page = parseInt(searchParams.get('page') || '1', 10);
+
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useSearchPostsQuery(query, page);
   const [searchInput, setSearchInput] = React.useState(query);
@@ -25,10 +26,6 @@ export default function PostListPage() {
   const postsPerPage = 6;
   const pagedPosts = data?.posts || [];
   const pageCount = Math.ceil((data?.total || 0) / postsPerPage);
-
-  const handleSearch = () => {
-    setSearchParams({ query, page: '1' }); // 기본 검색
-  };
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -64,7 +61,7 @@ export default function PostListPage() {
       component='main'
       sx={{ display: 'flex', flexDirection: 'column', mt: 16, mb: 10, gap: 4 }}
     >
-      {canCreatePost(user) && (
+      {isUserOrAdmin(user) && (
         <Button variant='contained' onClick={() => navigate('/posts/create')}>
           게시글 작성
         </Button>

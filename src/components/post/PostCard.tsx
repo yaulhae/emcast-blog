@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { deletePost, Post } from '../../api/posts';
-import { useAuth } from '../../hooks/useAuth';
-import { canDeletePost } from '../../utils/permission';
+import { deletePost } from '../../api/posts';
+import { useAuthStore } from '../../stores/authStore';
+import { Post } from '../../types/post';
+import { isAdmin } from '../../utils/permission';
 import { Author } from './Author';
 
 interface Props {
@@ -30,11 +31,11 @@ export default function PostCard({
   onFocus,
   onBlur
 }: Props) {
-  const user = useAuth((state) => state.user);
+  const user = useAuthStore((state) => state.user);
   const queryClient = useQueryClient();
 
   const handleDelete = async () => {
-    if (!canDeletePost(user)) {
+    if (!isAdmin(user)) {
       alert('삭제 권한이 없습니다.');
       return;
     }
@@ -122,7 +123,7 @@ export default function PostCard({
                 #{tag}
               </Typography>
             ))}
-            {canDeletePost(user) && (
+            {isAdmin(user) && (
               <Button
                 onClick={(e) => {
                   e.stopPropagation(); // 상위 Link에게 전달 안 되도록

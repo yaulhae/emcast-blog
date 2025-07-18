@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@tanstack/react-query": "^5.83.0",
@@ -21,7 +22,9 @@
     "markdown-to-jsx": "^7.7.10",
     "react": "latest",
     "react-dom": "latest",
+    "react-hook-form": "^7.60.0",
     "react-router-dom": "^7.7.0",
+    "zod": "^4.0.5",
     "zustand": "^5.0.6"
   },
   "devDependencies": {
@@ -30,7 +33,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "latest",
     "eslint-plugin-unused-imports": "^4.1.4",
-    "json-server": "1.0.0-beta.3",
+    "json-server": "0.17.3",
     "typescript": "latest",
     "vite": "latest"
   }

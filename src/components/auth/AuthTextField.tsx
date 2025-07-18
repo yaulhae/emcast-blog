@@ -1,42 +1,40 @@
 import { FormControl, FormLabel, TextField } from '@mui/material';
+import { Control, Controller } from 'react-hook-form';
 
 interface AuthTextFieldProps {
-  id: string;
-  label: string;
   name: string;
+  label: string;
   type?: string;
   placeholder?: string;
-  autoComplete?: string;
-  error?: boolean;
-  helperText?: string;
+  control: Control<any>;
 }
 
 export default function AuthTextField({
-  id,
-  label,
   name,
+  label,
   type = 'text',
   placeholder,
-  autoComplete,
-  error,
-  helperText
+  control
 }: AuthTextFieldProps) {
   return (
-    <FormControl>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <TextField
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        fullWidth
-        required
-        variant='outlined'
-        error={error}
-        helperText={helperText}
-        color={error ? 'error' : 'primary'}
-      />
-    </FormControl>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState }) => (
+        <FormControl fullWidth>
+          <FormLabel htmlFor={name}>{label}</FormLabel>
+          <TextField
+            {...field}
+            id={name}
+            type={type}
+            placeholder={placeholder}
+            error={!!fieldState.error}
+            helperText={fieldState.error?.message}
+            required
+            fullWidth
+          />
+        </FormControl>
+      )}
+    />
   );
 }

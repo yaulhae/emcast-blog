@@ -13,11 +13,11 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPost } from '../api/posts';
-import { useAuth } from '../hooks/useAuth';
-import { canCreatePost } from '../utils/permission';
+import { useAuthStore } from '../stores/authStore';
+import { isUserOrAdmin } from '../utils/permission';
 
 export default function PostCreatePage() {
-  const user = useAuth((state) => state.user);
+  const user = useAuthStore((state) => state.user);
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
@@ -25,7 +25,7 @@ export default function PostCreatePage() {
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
 
-  if (!canCreatePost(user)) {
+  if (!isUserOrAdmin(user)) {
     alert('게시글 작성 권한이 없습니다.');
     navigate('/posts');
     return null;

@@ -34,59 +34,59 @@
       "email": "gilga4@naver.com",
       "password": "456123",
       "accountType": "user"
+    },
+    {
+      "id": "3f93",
+      "name": "이성운",
+      "email": "gilga00@naver.com",
+      "password": "456123",
+      "accountType": "guest"
+    },
+    {
+      "id": "e028",
+      "name": "이성운2",
+      "email": "gilga1234@naver.com",
+      "password": "456123",
+      "accountType": "user"
     }
   ],
   "posts": [
     {
-      "id": "3946",
-      "title": "게시글 작성1",
-      "body": "게시글 내용1",
+      "title": "제목1",
+      "body": "내용2",
       "tags": [
-        "design"
+        "태그1"
       ],
       "reactions": {
         "likes": 0,
         "dislikes": 0
       },
       "userId": "984c",
-      "createdAt": "2025-07-18T06:40:06.307Z"
+      "createdAt": "2025-07-18T14:36:00.925Z",
+      "id": 1
     },
     {
-      "id": "570d",
-      "title": "게시글 제목2",
-      "body": "게시글 내용2",
+      "title": "제목2",
+      "body": "내용2",
       "tags": [
-        "developer"
+        "태그2"
       ],
       "reactions": {
         "likes": 0,
         "dislikes": 0
       },
       "userId": "984c",
-      "createdAt": "2025-07-18T06:40:20.459Z"
-    },
-    {
-      "id": "f841",
-      "title": "게시글 제목3",
-      "body": "게시글 내용3",
-      "tags": [
-        "개발"
-      ],
-      "reactions": {
-        "likes": 0,
-        "dislikes": 0
-      },
-      "userId": "984c",
-      "createdAt": "2025-07-18T06:40:58.964Z"
+      "createdAt": "2025-07-18T14:36:23.085Z",
+      "id": 2
     }
   ],
   "comments": [
     {
-      "id": "e4e9",
-      "postId": "3946",
+      "postId": 1,
       "author": "sungunlee",
-      "content": "댓글 작성할게2\n",
-      "createdAt": "2025-07-18T07:27:55.025Z"
+      "content": "댓글작성\n",
+      "createdAt": "2025-07-18T14:37:05.715Z",
+      "id": 1
     }
   ]
 }

@@ -1,52 +1,9 @@
 // /api/posts.ts
 import axios from 'axios';
-
-export interface Post {
-  id: number;
-  title: string;
-  body: string;
-  tags: string[];
-  reactions: {
-    likes: number;
-    dislikes: number;
-  };
-  userId: number;
-  createdAt?: string;
-}
-
-export interface GetPostsResponse {
-  posts: Post[];
-  total: number;
-  skip: number;
-  limit: number;
-}
+import { GetPostsResponse, Post } from '../types/post';
 
 // JSON-SERVER API BASE
 const API_BASE_URL = 'http://localhost:3001';
-
-// 전체 게시글 조회 (페이지네이션)
-export const fetchPosts = async (
-  page: number,
-  limit = 6
-): Promise<GetPostsResponse> => {
-  const skip = (page - 1) * limit;
-  const res = await axios.get<Post[]>(
-    `${API_BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${skip}&_limit=${limit}`
-  );
-  const totalRes = await axios.get<Post[]>(`${API_BASE_URL}/posts`);
-  return {
-    posts: res.data,
-    total: totalRes.data.length,
-    skip,
-    limit
-  };
-};
-
-// 전체 게시글 전체 불러오기
-export const fetchAllPosts = async (): Promise<Post[]> => {
-  const res = await axios.get<Post[]>(`${API_BASE_URL}/posts`);
-  return res.data;
-};
 
 // 검색 기반 게시글 조회
 export const fetchPostsBySearch = async (
@@ -54,14 +11,40 @@ export const fetchPostsBySearch = async (
   page: number,
   limit = 6
 ): Promise<GetPostsResponse> => {
+  console.log('쿼리쿼리:', query);
   const skip = (page - 1) * limit;
-  const res = await axios.get<Post[]>(
-    `${API_BASE_URL}/posts?q=${query}&_sort=-createdAt&_order=desc&_start=${skip}&_limit=${limit}`
+
+  // title_like 검색
+  const resTitle = await axios.get<Post[]>(
+    `${API_BASE_URL}/posts?title_like=${query}`
   );
-  const totalRes = await axios.get<Post[]>(`${API_BASE_URL}/posts?q=${query}`);
+
+  // body_like 검색
+  const resBody = await axios.get<Post[]>(
+    `${API_BASE_URL}/posts?body_like=${query}`
+  );
+
+  // 중복 제거 (id 기준)
+  const mergedMap = new Map<string, Post>();
+  [...resTitle.data, ...resBody.data].forEach((post) => {
+    mergedMap.set(String(post.id), post);
+  });
+
+  const mergedPosts = Array.from(mergedMap.values());
+
+  // 최신순 정렬 (createdAt 기준)
+  mergedPosts.sort((a, b) => {
+    const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return timeB - timeA;
+  });
+
+  // 페이징 처리
+  const paginatedPosts = mergedPosts.slice(skip, skip + limit);
+
   return {
-    posts: res.data,
-    total: totalRes.data.length,
+    posts: paginatedPosts,
+    total: mergedPosts.length,
     skip,
     limit
   };

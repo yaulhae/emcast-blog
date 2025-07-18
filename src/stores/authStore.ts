@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import { AuthStore } from '../types/auth';
 
-export const useAuth = create<AuthStore>((set) => ({
+export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   isInitialized: false,
   setUser: (user) => {

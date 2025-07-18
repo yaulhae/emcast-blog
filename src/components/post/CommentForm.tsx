@@ -7,8 +7,8 @@ import {
   Typography
 } from '@mui/material';
 import { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
 import { useCreateCommentMutation } from '../../hooks/useCommentQuery';
+import { useAuthStore } from '../../stores/authStore';
 
 interface CommentFormProps {
   postId: number;
@@ -17,13 +17,13 @@ interface CommentFormProps {
 export default function CommentForm({ postId }: CommentFormProps) {
   const [content, setContent] = useState('');
   const { mutate, isPending } = useCreateCommentMutation();
-  const user = useAuth((state) => state.user);
+  const user = useAuthStore((state) => state.user);
   console.log('user', user);
 
   const handleSubmit = () => {
     if (!content.trim()) return;
     if (!user || user.accountType === 'guest') {
-      alert('관리자 계정만 댓글을 작성할 수 있습니다.');
+      alert('관리자, 일반 계정만 댓글을 작성할 수 있습니다.');
       return;
     }
     mutate({
@@ -48,7 +48,7 @@ export default function CommentForm({ postId }: CommentFormProps) {
       </Typography>
       {!user || user.accountType === 'guest' ? (
         <Typography color='text.secondary'>
-          관리자 계정만 댓글을 작성할 수 있습니다
+          관리자, 일반 계정만 댓글을 작성할 수 있습니다
         </Typography>
       ) : (
         <>

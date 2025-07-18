@@ -1,10 +1,10 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
-import { useAuth } from '../../hooks/useAuth';
 import {
   useCommentsQuery,
   useDeleteCommentMutation
 } from '../../hooks/useCommentQuery';
+import { useAuthStore } from '../../stores/authStore';
 
 interface CommentListProps {
   postId: number;
@@ -12,7 +12,7 @@ interface CommentListProps {
 
 export default function CommentList({ postId }: CommentListProps) {
   const { data: comments = [], isLoading } = useCommentsQuery(postId);
-  const user = useAuth((state) => state.user);
+  const user = useAuthStore((state) => state.user);
   const { mutate: deleteComment } = useDeleteCommentMutation();
 
   if (isLoading) return <Typography>Loading comments...</Typography>;

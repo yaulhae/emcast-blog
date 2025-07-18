@@ -13,11 +13,10 @@ import {
 
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
+import { useAuthStore } from '../../../stores/authStore';
 
 export default function HeaderMobileAuthButtons() {
-  const user = useAuth((state) => state.user);
-  const clearUser = useAuth((state) => state.clearUser);
+  const { user, clearUser } = useAuthStore();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 

@@ -2,35 +2,30 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../api/authApi';
-import { LoginPayload } from '../types/auth';
-import { useAuth } from './useAuth';
+import {
+  checkDuplicateEmail,
+  checkDuplicateName,
+  loginUser
+} from '../api/authApi';
+import { useAuthStore } from '../stores/authStore';
+import { LoginPayload, RegisterPayload } from '../types/auth';
 
-const API_URL = 'http://localhost:3001'; // json-server 실행 주소
+const API_URL = 'http://localhost:3001';
 
 export function useRegister() {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (data: {
-      name: string;
-      email: string;
-      password: string;
-      accountType: string;
-    }) => {
-      // 1. 중복 이메일 검사
-      const emailRes = await axios.get(`${API_URL}/users`, {
-        params: { email: data.email }
-      });
-      if (emailRes.data.length > 0) {
+    mutationFn: async (data: RegisterPayload) => {
+      // 1. 이메일 중복 확인
+      const isEmailDuplicate = await checkDuplicateEmail(data.email);
+      if (isEmailDuplicate) {
         throw new Error('이미 등록된 이메일입니다.');
       }
 
-      // 2. 중복 이름 검사 (선택)
-      const nameRes = await axios.get(`${API_URL}/users`, {
-        params: { name: data.name }
-      });
-      if (nameRes.data.length > 0) {
+      // 2. 이름 중복 확인 (선택)
+      const isNameDuplicate = await checkDuplicateName(data.name);
+      if (isNameDuplicate) {
         throw new Error('이미 사용 중인 이름입니다.');
       }
 
@@ -47,16 +42,18 @@ export function useRegister() {
     }
   });
 }
+
 export function useLogin() {
-  const setUser = useAuth((state) => state.setUser);
+  const setUser = useAuthStore((state) => state.setUser);
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: (data: LoginPayload) => loginUser(data),
     onSuccess: (user) => {
-      setUser(user); //
-      sessionStorage.setItem('authUser', JSON.stringify(user));
-      alert(`${user.name}님, 환영합니다!`);
+      const { password, ...safeUser } = user; // 비밀번호 제외
+      setUser(safeUser);
+      sessionStorage.setItem('authUser', JSON.stringify(safeUser));
+      alert(`${user.name}님 환영합니다!`);
       navigate('/posts');
     },
     onError: (error: any) => {

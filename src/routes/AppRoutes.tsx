@@ -1,15 +1,15 @@
 // src/routes/AppRoutes.tsx
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../components/common/ProtectedRoute';
-import { useAuth } from '../hooks/useAuth';
 import PostCreatePage from '../pages/PostCreatePage';
 import PostDetailPage from '../pages/PostDetailPage';
 import PostListPage from '../pages/PostListPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
+import { useAuthStore } from '../stores/authStore';
 
 export default function AppRoutes() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   return (
     <Routes>
       {/* 기본 경로 우회 */}

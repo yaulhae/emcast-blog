@@ -1,9 +1,9 @@
-import { User } from '../types/user';
+import { User } from '../types/auth';
 
-export function canCreatePost(user: User | null) {
+export function isUserOrAdmin(user: User | null) {
   return user?.accountType === 'admin' || user?.accountType === 'user';
 }
 
-export function canDeletePost(user: User | null) {
+export function isAdmin(user: User | null) {
   return user?.accountType === 'admin';
 }
