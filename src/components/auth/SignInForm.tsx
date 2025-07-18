@@ -1,16 +1,16 @@
+// components/auth/SignInForm.tsx
 import { Box, Button, Checkbox, FormControlLabel } from '@mui/material';
 import { useState } from 'react';
+import { useLogin } from '../../hooks/useAuthMutation';
 import AuthTextField from './AuthTextField';
 
 export default function SignInForm() {
+  const loginMutation = useLogin();
+
   const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
@@ -40,15 +40,14 @@ export default function SignInForm() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
-    });
+    event.preventDefault();
+    if (!validateInputs()) return;
+
+    const form = new FormData(event.currentTarget);
+    const email = form.get('email') as string;
+    const password = form.get('password') as string;
+
+    loginMutation.mutate({ email, password });
   };
 
   return (
@@ -85,13 +84,8 @@ export default function SignInForm() {
         label='Remember me'
       />
 
-      <Button
-        type='submit'
-        fullWidth
-        variant='contained'
-        onClick={validateInputs}
-      >
-        Sign in
+      <Button type='submit' fullWidth variant='contained'>
+        {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
       </Button>
     </Box>
   );

@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin User",
+      "email": "admin@example.com",
+      "password": "admin123",
+      "accountType": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Regular User",
+      "email": "user@example.com",
+      "password": "user123",
+      "accountType": "user"
+    },
+    {
+      "id": "3",
+      "name": "Guest User",
+      "email": "guest@example.com",
+      "password": "guest123",
+      "accountType": "guest"
+    },
+    {
+      "id": "984c",
+      "name": "sungunlee",
+      "email": "gilga0240@naver.com",
+      "password": "456123",
+      "accountType": "admin"
+    },
+    {
+      "id": "7d5c",
+      "name": "sungun",
+      "email": "gilga4@naver.com",
+      "password": "456123",
+      "accountType": "user"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "First Post",
+      "body": "This is the first post body",
+      "userId": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "postId": 1,
+      "userId": 2,
+      "body": "Nice post!"
+    }
+  ]
+}

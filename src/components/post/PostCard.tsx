@@ -1,8 +1,17 @@
 // components/blog/PostCard.tsx
 
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography
+} from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { Post } from '../../api/posts';
+import { deletePost, Post } from '../../api/posts';
+import { useAuth } from '../../hooks/useAuth';
+import { canDeletePost } from '../../utils/permission';
 import { Author } from './Author';
 
 interface Props {
@@ -20,6 +29,26 @@ export default function PostCard({
   onFocus,
   onBlur
 }: Props) {
+  const user = useAuth((state) => state.user);
+  const queryClient = useQueryClient();
+
+  const handleDelete = async () => {
+    if (!canDeletePost(user)) {
+      alert('삭제 권한이 없습니다.');
+      return;
+    }
+
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+
+    try {
+      await deletePost(post.id);
+      alert('삭제 완료');
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    } catch (error) {
+      alert('삭제 실패');
+    }
+  };
+
   return (
     <Link
       to={`/posts/${post.id}`}
@@ -77,6 +106,11 @@ export default function PostCard({
             {post.tags?.[0] || 'General'}
           </Typography>
           <Typography variant='h6'>{post.title}</Typography>
+          {canDeletePost(user) && (
+            <Button onClick={handleDelete} color='error' size='small'>
+              삭제
+            </Button>
+          )}
           <Typography
             variant='body2'
             sx={{

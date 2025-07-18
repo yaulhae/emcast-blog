@@ -1,8 +1,14 @@
+// components/auth/SignUpForm.tsx
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
+import { useRegister } from '../../hooks/useAuthMutation';
+import AccountTypeSelector from './AccountTypeSelector';
 import AuthTextField from './AuthTextField';
 
 export default function SignUpForm() {
+  const registerMutation = useRegister();
+
+  const [accountType, setAccountType] = useState('user');
   const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -51,12 +57,12 @@ export default function SignUpForm() {
     event.preventDefault();
     if (!validateInputs()) return;
 
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      email: data.get('email'),
-      password: data.get('password')
-    });
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    registerMutation.mutate({ name, email, password, accountType });
   };
 
   return (
@@ -97,8 +103,10 @@ export default function SignUpForm() {
         helperText={passwordErrorMessage}
       />
 
+      <AccountTypeSelector value={accountType} onChange={setAccountType} />
+
       <Button type='submit' fullWidth variant='contained'>
-        Sign up
+        {registerMutation.isPending ? 'Signing up...' : 'Sign up'}
       </Button>
     </Box>
   );

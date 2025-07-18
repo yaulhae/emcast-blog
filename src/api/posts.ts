@@ -53,3 +53,12 @@ export const getPostById = async (id: number): Promise<Post> => {
   const res = await axios.get(`https://dummyjson.com/posts/${id}`);
   return res.data;
 };
+
+export async function deletePost(id: number) {
+  const res = await fetch(`http://localhost:3000/posts/${id}`, {
+    method: 'DELETE'
+  });
+  if (!res.ok) {
+    throw new Error('게시글 삭제 실패');
+  }
+}

@@ -1,12 +1,6 @@
 // src/hooks/useAuth.ts
 import { create } from 'zustand';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  accountType: string;
-}
+import { User } from '../types/user';
 
 interface AuthState {
   user: User | null;

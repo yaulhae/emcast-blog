@@ -1,5 +1,6 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,7 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 import SitemarkIcon from '../post/SitemarkIcon';
 
@@ -33,6 +35,15 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
+  const user = useAuth((state) => state.user);
+  const logout = useAuth((state) => state.logout);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); // Zustand 상태 초기화
+    alert('로그아웃되었습니다.');
+    navigate('/sign-in'); // 로그인 페이지로 이동
+  };
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -88,24 +99,43 @@ export default function Header() {
               alignItems: 'center'
             }}
           >
-            <Button
-              component={Link}
-              to='/sign-in'
-              color='primary'
-              variant='text'
-              size='small'
-            >
-              Sign in
-            </Button>
-            <Button
-              component={Link}
-              to='/sign-up'
-              color='primary'
-              variant='contained'
-              size='small'
-            >
-              Sign up
-            </Button>
+            {user ? (
+              <>
+                <Typography variant='body2'>
+                  Hello, {user.name} ({user.accountType})
+                </Typography>
+                <Button
+                  color='error'
+                  variant='outlined'
+                  size='small'
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  component={Link}
+                  to='/sign-in'
+                  color='primary'
+                  variant='text'
+                  size='small'
+                >
+                  Sign in
+                </Button>
+                <Button
+                  component={Link}
+                  to='/sign-up'
+                  color='primary'
+                  variant='contained'
+                  size='small'
+                >
+                  Sign up
+                </Button>
+              </>
+            )}
+
             <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
@@ -141,16 +171,43 @@ export default function Header() {
                 <MenuItem>FAQ</MenuItem> */}
                 <MenuItem>Blog</MenuItem>
                 <Divider sx={{ my: 3 }} />
-                <MenuItem>
-                  <Button color='primary' variant='contained' fullWidth>
-                    Sign up
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button color='primary' variant='outlined' fullWidth>
-                    Sign in
-                  </Button>
-                </MenuItem>
+                {user ? (
+                  <MenuItem>
+                    <Button
+                      fullWidth
+                      onClick={handleLogout}
+                      color='error'
+                      variant='outlined'
+                    >
+                      Logout
+                    </Button>
+                  </MenuItem>
+                ) : (
+                  <>
+                    <MenuItem>
+                      <Button
+                        component={Link}
+                        to='/sign-up'
+                        color='primary'
+                        variant='contained'
+                        fullWidth
+                      >
+                        Sign up
+                      </Button>
+                    </MenuItem>
+                    <MenuItem>
+                      <Button
+                        component={Link}
+                        to='/sign-in'
+                        color='primary'
+                        variant='outlined'
+                        fullWidth
+                      >
+                        Sign in
+                      </Button>
+                    </MenuItem>
+                  </>
+                )}
               </Box>
             </Drawer>
           </Box>

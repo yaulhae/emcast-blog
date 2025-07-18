@@ -1,12 +1,15 @@
-import { Container, Pagination } from '@mui/material';
+import { Button, Container, Pagination } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PostHeader } from '../components/post/PostHeader';
 import PostMain from '../components/post/PostMain';
+import { useAuth } from '../hooks/useAuth';
 import { useSearchPostsQuery } from '../hooks/usePostsQuery';
+import { canCreatePost } from '../utils/permission';
 
 export default function PostListPage() {
+  const user = useAuth((state) => state.user);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -61,6 +64,11 @@ export default function PostListPage() {
       component='main'
       sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
     >
+      {canCreatePost(user) && (
+        <Button variant='contained' onClick={() => navigate('/posts/create')}>
+          게시글 작성
+        </Button>
+      )}
       <PostHeader
         searchInput={searchInput}
         onChange={setSearchInput}
