@@ -1,7 +1,7 @@
 // components/auth/AuthHeader.tsx
 import { Stack, Typography } from '@mui/material';
 import { ReactNode } from 'react';
-import { SitemarkIcon } from './SitemarkIcon';
+import { Logo } from '../common/Logo';
 
 interface AuthHeaderProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface AuthHeaderProps {
 export default function AuthHeader({ children }: AuthHeaderProps) {
   return (
     <Stack spacing={1} alignItems='center'>
-      <SitemarkIcon />
+      <Logo />
       <Typography
         component='h1'
         variant='h4'

@@ -8,9 +8,9 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter basename='/Blog'>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
-    <ReactQueryDevtools initialIsOpen={false} /> {/* ← 여기에 삽입 */}
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

@@ -62,7 +62,7 @@ export default function PostListPage() {
     <Container
       maxWidth='lg'
       component='main'
-      sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+      sx={{ display: 'flex', flexDirection: 'column', mt: 16, mb: 10, gap: 4 }}
     >
       {canCreatePost(user) && (
         <Button variant='contained' onClick={() => navigate('/posts/create')}>

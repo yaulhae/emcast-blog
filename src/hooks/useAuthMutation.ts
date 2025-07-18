@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../api/authApi';
+import { LoginPayload } from '../types/auth';
 import { useAuth } from './useAuth';
 
 const API_URL = 'http://localhost:3001'; // json-server 실행 주소
@@ -47,16 +48,16 @@ export function useRegister() {
   });
 }
 export function useLogin() {
-  const setAuth = useAuth((state) => state.login);
+  const setUser = useAuth((state) => state.setUser);
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: ({ email, password }: { email: string; password: string }) =>
-      loginUser(email, password),
+    mutationFn: (data: LoginPayload) => loginUser(data),
     onSuccess: (user) => {
-      setAuth(user); // Zustand 상태 저장
+      setUser(user); //
+      sessionStorage.setItem('authUser', JSON.stringify(user));
       alert(`${user.name}님, 환영합니다!`);
-      navigate('/posts'); // 로그인 성공 후 이동
+      navigate('/posts');
     },
     onError: (error: any) => {
       alert(error.message || '로그인 실패');

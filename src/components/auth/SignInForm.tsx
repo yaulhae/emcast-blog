@@ -1,5 +1,5 @@
 // components/auth/SignInForm.tsx
-import { Box, Button, Checkbox, FormControlLabel } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useState } from 'react';
 import { useLogin } from '../../hooks/useAuthMutation';
 import AuthTextField from './AuthTextField';
@@ -12,13 +12,13 @@ export default function SignInForm() {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
-  const validateInputs = () => {
-    const email = document.getElementById('email') as HTMLInputElement;
-    const password = document.getElementById('password') as HTMLInputElement;
+  const validateInputs = (form: FormData) => {
+    const email = form.get('email') as string;
+    const password = form.get('password') as string;
 
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError(true);
       setEmailErrorMessage('Please enter a valid email address.');
       isValid = false;
@@ -27,7 +27,7 @@ export default function SignInForm() {
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password || password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage('Password must be at least 6 characters long.');
       isValid = false;
@@ -41,9 +41,10 @@ export default function SignInForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!validateInputs()) return;
-
     const form = new FormData(event.currentTarget);
+
+    if (!validateInputs(form)) return;
+
     const email = form.get('email') as string;
     const password = form.get('password') as string;
 
@@ -63,7 +64,6 @@ export default function SignInForm() {
         name='email'
         type='email'
         placeholder='your@email.com'
-        autoComplete='email'
         error={emailError}
         helperText={emailErrorMessage}
       />
@@ -74,17 +74,11 @@ export default function SignInForm() {
         name='password'
         type='password'
         placeholder='••••••'
-        autoComplete='current-password'
         error={passwordError}
         helperText={passwordErrorMessage}
       />
 
-      <FormControlLabel
-        control={<Checkbox value='remember' color='primary' />}
-        label='Remember me'
-      />
-
-      <Button type='submit' fullWidth variant='contained'>
+      <Button type='submit' fullWidth variant='contained' sx={{ mt: 2 }}>
         {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
       </Button>
     </Box>

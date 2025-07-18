@@ -1,5 +1,6 @@
 // src/api/authApi.ts
 import axios from 'axios';
+import { LoginPayload } from '../types/auth';
 
 const API_URL = 'http://localhost:3001'; // json-server 실행 주소
 
@@ -13,9 +14,9 @@ export const registerUser = async (data: {
   return res.data;
 };
 
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (data: LoginPayload) => {
   const res = await axios.get(`${API_URL}/users`, {
-    params: { email, password }
+    params: data
   });
 
   if (res.data.length === 0) {
