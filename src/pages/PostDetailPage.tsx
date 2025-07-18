@@ -26,7 +26,7 @@ export default function PostDetailPage() {
 
   if (isLoading) {
     return (
-      <Box textAlign='center' mt={10}>
+      <Box textAlign='center' mt={50}>
         <CircularProgress />
       </Box>
     );
@@ -34,7 +34,7 @@ export default function PostDetailPage() {
 
   if (isError || !post) {
     return (
-      <Box textAlign='center' mt={10}>
+      <Box textAlign='center' mt={50}>
         <Typography variant='h6'>Post not found.</Typography>
         <Button onClick={() => navigate(-1)} sx={{ mt: 2 }}>
           ← Back

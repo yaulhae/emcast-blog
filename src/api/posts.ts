@@ -9,7 +9,7 @@ export interface Post {
   reactions: {
     likes: number;
     dislikes: number;
-  }; // ✅ 이렇게 수정
+  };
   userId: number;
   createdAt?: string;
 }
@@ -21,44 +21,68 @@ export interface GetPostsResponse {
   limit: number;
 }
 
+// JSON-SERVER API BASE
+const API_BASE_URL = 'http://localhost:3001';
+
+// 전체 게시글 조회 (페이지네이션)
 export const fetchPosts = async (
   page: number,
   limit = 6
 ): Promise<GetPostsResponse> => {
   const skip = (page - 1) * limit;
-  const response = await axios.get(
-    `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`
+  const res = await axios.get<Post[]>(
+    `${API_BASE_URL}/posts?_start=${skip}&_limit=${limit}`
   );
-  return response.data;
+  const totalRes = await axios.get<Post[]>(`${API_BASE_URL}/posts`);
+  return {
+    posts: res.data,
+    total: totalRes.data.length,
+    skip,
+    limit
+  };
 };
 
-export const fetchAllPosts = async () => {
-  const res = await axios.get('https://dummyjson.com/posts?limit=150');
-  return res.data.posts;
+// 전체 게시글 전체 불러오기
+export const fetchAllPosts = async (): Promise<Post[]> => {
+  const res = await axios.get<Post[]>(`${API_BASE_URL}/posts`);
+  return res.data;
 };
 
+// 검색 기반 게시글 조회
 export const fetchPostsBySearch = async (
   query: string,
   page: number,
   limit = 6
-) => {
+): Promise<GetPostsResponse> => {
   const skip = (page - 1) * limit;
-  const response = await axios.get(
-    `https://dummyjson.com/posts/search?q=${query}&limit=${limit}&skip=${skip}`
+  const res = await axios.get<Post[]>(
+    `${API_BASE_URL}/posts?q=${query}&_start=${skip}&_limit=${limit}`
   );
-  return response.data; // { posts, total, skip, limit }
+  const totalRes = await axios.get<Post[]>(`${API_BASE_URL}/posts?q=${query}`);
+  return {
+    posts: res.data,
+    total: totalRes.data.length,
+    skip,
+    limit
+  };
 };
 
+// 게시글 ID로 조회
 export const getPostById = async (id: number): Promise<Post> => {
-  const res = await axios.get(`https://dummyjson.com/posts/${id}`);
+  const res = await axios.get<Post>(`${API_BASE_URL}/posts/${id}`);
   return res.data;
 };
 
-export async function deletePost(id: number) {
-  const res = await fetch(`http://localhost:3000/posts/${id}`, {
-    method: 'DELETE'
-  });
-  if (!res.ok) {
+// 게시글 삭제
+export const deletePost = async (id: number) => {
+  const res = await axios.delete(`${API_BASE_URL}/posts/${id}`);
+  if (res.status !== 200) {
     throw new Error('게시글 삭제 실패');
   }
-}
+};
+
+// 게시글 생성
+export const createPost = async (post: Omit<Post, 'id'>): Promise<Post> => {
+  const res = await axios.post<Post>(`${API_BASE_URL}/posts`, post);
+  return res.data;
+};

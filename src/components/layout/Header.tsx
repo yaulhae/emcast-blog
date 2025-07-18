@@ -101,8 +101,11 @@ export default function Header() {
           >
             {user ? (
               <>
-                <Typography variant='body2'>
-                  Hello, {user.name} ({user.accountType})
+                <Typography
+                  variant='body2'
+                  sx={{ color: 'text.primary', fontWeight: 500 }}
+                >
+                  Hello, {user.name}
                 </Typography>
                 <Button
                   color='error'

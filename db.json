@@ -38,18 +38,379 @@
   ],
   "posts": [
     {
-      "id": "1",
-      "title": "First Post",
-      "body": "This is the first post body",
-      "userId": 1
+      "id": "8",
+      "title": "What’s New in JavaScript 2025",
+      "body": "In this post, we take a deep dive into What’s New in JavaScript 2025. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "javascript",
+        "es2025"
+      ],
+      "reactions": {
+        "likes": 9,
+        "dislikes": 2
+      },
+      "createdAt": "2025-07-10T08:00:00Z"
+    },
+    {
+      "id": "9",
+      "title": "Mastering Async/Await Patterns",
+      "body": "In this post, we take a deep dive into Mastering Async/Await Patterns. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "javascript",
+        "async"
+      ],
+      "reactions": {
+        "likes": 12,
+        "dislikes": 4
+      },
+      "createdAt": "2025-07-11T08:00:00Z"
+    },
+    {
+      "id": "10",
+      "title": "Pro Debugging Techniques",
+      "body": "In this post, we take a deep dive into Pro Debugging Techniques. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "debugging",
+        "tools"
+      ],
+      "reactions": {
+        "likes": 0,
+        "dislikes": 6
+      },
+      "createdAt": "2025-07-12T08:00:00Z"
+    },
+    {
+      "id": "12",
+      "title": "Building Route Guards",
+      "body": "In this post, we take a deep dive into Building Route Guards. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "routing",
+        "security"
+      ],
+      "reactions": {
+        "likes": 6,
+        "dislikes": 3
+      },
+      "createdAt": "2025-07-14T08:00:00Z"
+    },
+    {
+      "id": "13",
+      "title": "API Design Best Practices",
+      "body": "In this post, we take a deep dive into API Design Best Practices. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "api",
+        "design"
+      ],
+      "reactions": {
+        "likes": 9,
+        "dislikes": 5
+      },
+      "createdAt": "2025-07-15T08:00:00Z"
+    },
+    {
+      "id": "15",
+      "title": "React vs Vue: Pros & Cons",
+      "body": "In this post, we take a deep dive into React vs Vue: Pros & Cons. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "react",
+        "vue",
+        "comparison"
+      ],
+      "reactions": {
+        "likes": 0,
+        "dislikes": 2
+      },
+      "createdAt": "2025-07-17T08:00:00Z"
+    },
+    {
+      "id": "16",
+      "title": "The Future of Frontend",
+      "body": "In this post, we take a deep dive into The Future of Frontend. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "frontend",
+        "trends"
+      ],
+      "reactions": {
+        "likes": 3,
+        "dislikes": 4
+      },
+      "createdAt": "2025-07-18T08:00:00Z"
+    },
+    {
+      "id": "17",
+      "title": "TypeScript for Large Apps",
+      "body": "In this post, we take a deep dive into TypeScript for Large Apps. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "typescript",
+        "scaling"
+      ],
+      "reactions": {
+        "likes": 6,
+        "dislikes": 6
+      },
+      "createdAt": "2025-07-19T08:00:00Z"
+    },
+    {
+      "id": "18",
+      "title": "Server-Side Rendering Guide",
+      "body": "In this post, we take a deep dive into Server-Side Rendering Guide. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "ssr",
+        "nextjs"
+      ],
+      "reactions": {
+        "likes": 9,
+        "dislikes": 1
+      },
+      "createdAt": "2025-07-20T08:00:00Z"
+    },
+    {
+      "id": "19",
+      "title": "Forms in React: The Smart Way",
+      "body": "In this post, we take a deep dive into Forms in React: The Smart Way. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "react",
+        "forms"
+      ],
+      "reactions": {
+        "likes": 12,
+        "dislikes": 3
+      },
+      "createdAt": "2025-07-21T08:00:00Z"
+    },
+    {
+      "id": "20",
+      "title": "When to useMemo & useCallback",
+      "body": "In this post, we take a deep dive into When to useMemo & useCallback. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "react",
+        "hooks"
+      ],
+      "reactions": {
+        "likes": 0,
+        "dislikes": 5
+      },
+      "createdAt": "2025-07-22T08:00:00Z"
+    },
+    {
+      "id": "21",
+      "title": "Creating Reusable UI Components",
+      "body": "In this post, we take a deep dive into Creating Reusable UI Components. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "ui",
+        "components"
+      ],
+      "reactions": {
+        "likes": 3,
+        "dislikes": 0
+      },
+      "createdAt": "2025-07-23T08:00:00Z"
+    },
+    {
+      "id": "22",
+      "title": "Zustand for State Management",
+      "body": "In this post, we take a deep dive into Zustand for State Management. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "zustand",
+        "state"
+      ],
+      "reactions": {
+        "likes": 6,
+        "dislikes": 2
+      },
+      "createdAt": "2025-07-24T08:00:00Z"
+    },
+    {
+      "id": "23",
+      "title": "React Code Splitting Techniques",
+      "body": "In this post, we take a deep dive into React Code Splitting Techniques. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "code-splitting",
+        "performance"
+      ],
+      "reactions": {
+        "likes": 9,
+        "dislikes": 4
+      },
+      "createdAt": "2025-07-25T08:00:00Z"
+    },
+    {
+      "id": "24",
+      "title": "Intro to React Server Components",
+      "body": "In this post, we take a deep dive into Intro to React Server Components. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "rsc",
+        "react"
+      ],
+      "reactions": {
+        "likes": 12,
+        "dislikes": 6
+      },
+      "createdAt": "2025-07-26T08:00:00Z"
+    },
+    {
+      "id": "25",
+      "title": "Creating Developer Delight",
+      "body": "In this post, we take a deep dive into Creating Developer Delight. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "dx",
+        "developer-experience"
+      ],
+      "reactions": {
+        "likes": 0,
+        "dislikes": 1
+      },
+      "createdAt": "2025-07-27T08:00:00Z"
+    },
+    {
+      "id": "26",
+      "title": "Design Systems with MUI",
+      "body": "In this post, we take a deep dive into Design Systems with MUI. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "mui",
+        "design-system"
+      ],
+      "reactions": {
+        "likes": 3,
+        "dislikes": 3
+      },
+      "createdAt": "2025-07-28T08:00:00Z"
+    },
+    {
+      "id": "27",
+      "title": "Using React Context Wisely",
+      "body": "In this post, we take a deep dive into Using React Context Wisely. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "react",
+        "context"
+      ],
+      "reactions": {
+        "likes": 6,
+        "dislikes": 5
+      },
+      "createdAt": "2025-07-29T08:00:00Z"
+    },
+    {
+      "id": "28",
+      "title": "Legacy Code Refactoring Tips",
+      "body": "In this post, we take a deep dive into Legacy Code Refactoring Tips. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "refactoring",
+        "legacy"
+      ],
+      "reactions": {
+        "likes": 9,
+        "dislikes": 0
+      },
+      "createdAt": "2025-07-30T08:00:00Z"
+    },
+    {
+      "id": "29",
+      "title": "Designing for Dark Mode",
+      "body": "In this post, we take a deep dive into Designing for Dark Mode. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "dark-mode",
+        "ux"
+      ],
+      "reactions": {
+        "likes": 12,
+        "dislikes": 2
+      },
+      "createdAt": "2025-07-31T08:00:00Z"
+    },
+    {
+      "id": "30",
+      "title": "Frontend Monitoring Tools",
+      "body": "In this post, we take a deep dive into Frontend Monitoring Tools. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "monitoring",
+        "frontend"
+      ],
+      "reactions": {
+        "likes": 0,
+        "dislikes": 4
+      },
+      "createdAt": "2025-08-01T08:00:00Z"
+    },
+    {
+      "id": "31",
+      "title": "Automating Code Style",
+      "body": "In this post, we take a deep dive into Automating Code Style. You'll learn practical techniques and principles for modern development.",
+      "userId": "2",
+      "tags": [
+        "linting",
+        "prettier"
+      ],
+      "reactions": {
+        "likes": 3,
+        "dislikes": 6
+      },
+      "createdAt": "2025-08-02T08:00:00Z"
+    },
+    {
+      "id": "32",
+      "title": "Testing React Like a Pro",
+      "body": "In this post, we take a deep dive into Testing React Like a Pro. You'll learn practical techniques and principles for modern development.",
+      "userId": "3",
+      "tags": [
+        "testing",
+        "react"
+      ],
+      "reactions": {
+        "likes": 6,
+        "dislikes": 1
+      },
+      "createdAt": "2025-08-03T08:00:00Z"
+    },
+    {
+      "id": "33",
+      "title": "Writing Clean JavaScript",
+      "body": "In this post, we take a deep dive into Writing Clean JavaScript. You'll learn practical techniques and principles for modern development.",
+      "userId": "1",
+      "tags": [
+        "clean-code",
+        "javascript"
+      ],
+      "reactions": {
+        "likes": 9,
+        "dislikes": 3
+      },
+      "createdAt": "2025-08-04T08:00:00Z"
     }
   ],
   "comments": [
     {
       "id": "1",
-      "postId": 1,
-      "userId": 2,
+      "postId": null,
+      "userId": "2",
       "body": "Nice post!"
+    },
+    {
+      "id": "2",
+      "postId": null,
+      "userId": "1",
+      "body": "Thanks for reading!"
     }
   ]
 }

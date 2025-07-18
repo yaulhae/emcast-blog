@@ -7,7 +7,12 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const user = useAuth((state) => state.user);
+  const { user, isInitialized } = useAuth();
+
+  if (!isInitialized) {
+    // 아직 상태 초기화 중이면 아무 것도 렌더링하지 않음
+    return null;
+  }
 
   if (!user) {
     alert('로그인이 필요합니다.');

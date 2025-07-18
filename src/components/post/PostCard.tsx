@@ -1,6 +1,7 @@
 // components/blog/PostCard.tsx
 
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -43,7 +44,7 @@ export default function PostCard({
     try {
       await deletePost(post.id);
       alert('삭제 완료');
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['searchPosts'] });
     } catch (error) {
       alert('삭제 실패');
     }
@@ -63,15 +64,15 @@ export default function PostCard({
         onBlur={onBlur}
         className={isFocused ? 'Mui-focused' : ''}
         sx={{
+          position: 'relative', // 삭제 버튼을 위치시키기 위해 필요
           display: 'flex',
           flexDirection: 'column',
           padding: 0,
           height: '100%',
           backgroundColor: (theme) =>
             (theme.vars || theme).palette.background.paper,
-          '&:hover': {
-            backgroundColor: 'transparent',
-            cursor: 'pointer'
+          '&:hover .delete-btn': {
+            opacity: 1
           },
           '&:focus-visible': {
             outline: '3px solid',
@@ -94,23 +95,61 @@ export default function PostCard({
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 4,
-            padding: 2,
+            gap: 1,
+            px: 2,
+            pb: 2,
             flexGrow: 1,
             '&:last-child': {
               paddingBottom: 2
             }
           }}
         >
-          <Typography variant='caption'>
-            {post.tags?.[0] || 'General'}
-          </Typography>
+          <Box sx={{ position: 'relative' }}>
+            {post.tags?.map((tag, idx) => (
+              <Typography
+                key={idx}
+                variant='caption'
+                sx={{
+                  backgroundColor: 'primary.main',
+                  color: 'primary.contrastText',
+                  px: 1,
+                  py: 0.5,
+                  mr: 0.5,
+                  borderRadius: 1,
+                  fontSize: '0.7rem'
+                }}
+              >
+                #{tag}
+              </Typography>
+            ))}
+            {canDeletePost(user) && (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation(); // 상위 Link에게 전달 안 되도록
+                  e.preventDefault(); // 기본 동작(링크 이동)도 막기
+                  handleDelete();
+                }}
+                color='error'
+                variant='contained'
+                size='small'
+                title='삭제'
+                className='delete-btn'
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  zIndex: 1,
+                  opacity: { xs: 1, sm: 0 }, // 모바일에서는 항상 보이고, PC에서는 hover 시만
+                  transition: 'opacity 0.2s ease'
+                }}
+              >
+                삭제
+              </Button>
+            )}
+          </Box>
+
           <Typography variant='h6'>{post.title}</Typography>
-          {canDeletePost(user) && (
-            <Button onClick={handleDelete} color='error' size='small'>
-              삭제
-            </Button>
-          )}
+
           <Typography
             variant='body2'
             sx={{
