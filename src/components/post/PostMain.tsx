@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { Post } from '../../api/posts';
+import { Post } from '../../types/post';
 import PostList from './PostList';
 
 interface PostMainProps {

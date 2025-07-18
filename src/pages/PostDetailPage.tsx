@@ -8,9 +8,10 @@ import {
 } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getPostById, Post } from '../api/posts';
+import { getPostById } from '../api/posts';
 import CommentForm from '../components/post/CommentForm';
 import CommentList from '../components/post/CommentList';
+import { Post } from '../types/post';
 
 export default function PostDetailPage() {
   const { id } = useParams();

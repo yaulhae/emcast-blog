@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import { Post } from '../../api/posts';
+import { Post } from '../../types/post';
 import PostCard from './PostCard';
 
 interface Props {
