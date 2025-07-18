@@ -9,6 +9,8 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getPostById, Post } from '../api/posts';
+import CommentForm from '../components/post/CommentForm';
+import CommentList from '../components/post/CommentList';
 
 export default function PostDetailPage() {
   const { id } = useParams();
@@ -97,16 +99,17 @@ export default function PostDetailPage() {
         <Typography variant='body1' sx={{ mt: 4 }}>
           {post.body}
         </Typography>
-
         <Typography
           variant='caption'
           display='block'
           color='text.secondary'
-          mt={4}
+          my={4}
         >
           👍 {post.reactions.likes} likes • 👎 {post.reactions.dislikes}{' '}
           dislikes
         </Typography>
+        <CommentList postId={post.id} />
+        <CommentForm postId={post.id} />
       </Box>
     </Container>
   );

@@ -82,16 +82,11 @@
   ],
   "comments": [
     {
-      "id": "1",
-      "postId": null,
-      "userId": "2",
-      "body": "Nice post!"
-    },
-    {
-      "id": "2",
-      "postId": null,
-      "userId": "1",
-      "body": "Thanks for reading!"
+      "id": "e4e9",
+      "postId": "3946",
+      "author": "sungunlee",
+      "content": "댓글 작성할게2\n",
+      "createdAt": "2025-07-18T07:27:55.025Z"
     }
   ]
 }
