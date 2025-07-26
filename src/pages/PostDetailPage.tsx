@@ -9,8 +9,8 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getPostById } from '../api/posts';
-import CommentForm from '../components/post/CommentForm';
-import CommentList from '../components/post/CommentList';
+import PostCommentForm from '../components/post/PostCommentForm';
+import PostCommentList from '../components/post/PostCommentList';
 import { Post } from '../types/post';
 
 export default function PostDetailPage() {
@@ -109,8 +109,8 @@ export default function PostDetailPage() {
           👍 {post.reactions.likes} likes • 👎 {post.reactions.dislikes}{' '}
           dislikes
         </Typography>
-        <CommentList postId={post.id} />
-        <CommentForm postId={post.id} />
+        <PostCommentList postId={post.id} />
+        <PostCommentForm postId={post.id} />
       </Box>
     </Container>
   );

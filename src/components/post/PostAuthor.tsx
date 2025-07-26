@@ -5,7 +5,7 @@ interface AuthorProps {
   createdAt?: string;
 }
 
-export function Author({ authors, createdAt }: AuthorProps) {
+export function PostAuthor({ authors, createdAt }: AuthorProps) {
   return (
     <Box
       sx={{

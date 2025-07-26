@@ -10,8 +10,6 @@ export default function HeaderLogo() {
       sx={{
         display: 'inline-flex',
         alignItems: 'center',
-        textDecoration: 'none',
-        color: 'inherit',
         cursor: 'pointer'
       }}
     >

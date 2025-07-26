@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useRegister } from '../../hooks/useAuthMutation';
 import { SignUpFormValues, signUpSchema } from '../../schemas/auth.schema';
 import AccountTypeSelector from './AccountTypeSelector';
@@ -53,15 +53,7 @@ export default function SignUpForm() {
         placeholder='••••••'
         control={control}
       />
-
-      <Controller
-        name='accountType'
-        control={control}
-        render={({ field }) => (
-          <AccountTypeSelector value={field.value} onChange={field.onChange} />
-        )}
-      />
-
+      <AccountTypeSelector name='accountType' control={control} />
       <Button
         type='submit'
         fullWidth

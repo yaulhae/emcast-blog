@@ -1,3 +1,5 @@
+import { Control } from 'react-hook-form';
+
 export interface User {
   id: number;
   name: string;
@@ -23,4 +25,16 @@ export interface AuthStore {
   setUser: (user: User) => void;
   clearUser: () => void;
   initializeUser: () => void;
+}
+
+export interface AuthTextFieldProps {
+  name: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  control: Control<any>;
+}
+
+export interface AlreadyHaveAccountLinkProps {
+  mode: 'signup' | 'signin';
 }

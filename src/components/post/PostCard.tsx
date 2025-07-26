@@ -14,7 +14,7 @@ import { deletePost } from '../../api/posts';
 import { useAuthStore } from '../../stores/authStore';
 import { Post } from '../../types/post';
 import { isAdmin } from '../../utils/permission';
-import { Author } from './Author';
+import { PostAuthor } from './PostAuthor';
 
 interface Props {
   post: Post;
@@ -164,7 +164,7 @@ export default function PostCard({
             {post.body}
           </Typography>
         </CardContent>
-        <Author
+        <PostAuthor
           authors={[
             {
               name: `User ${post.userId}`,

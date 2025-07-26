@@ -1,13 +1,6 @@
 import { FormControl, FormLabel, TextField } from '@mui/material';
-import { Control, Controller } from 'react-hook-form';
-
-interface AuthTextFieldProps {
-  name: string;
-  label: string;
-  type?: string;
-  placeholder?: string;
-  control: Control<any>;
-}
+import { Controller } from 'react-hook-form';
+import { AuthTextFieldProps } from '../../types/auth';
 
 export default function AuthTextField({
   name,

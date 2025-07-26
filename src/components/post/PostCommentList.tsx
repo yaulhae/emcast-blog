@@ -6,11 +6,11 @@ import {
 } from '../../hooks/useCommentQuery';
 import { useAuthStore } from '../../stores/authStore';
 
-interface CommentListProps {
+interface PostCommentListProps {
   postId: number;
 }
 
-export default function CommentList({ postId }: CommentListProps) {
+export default function PostCommentList({ postId }: PostCommentListProps) {
   const { data: comments = [], isLoading } = useCommentsQuery(postId);
   const user = useAuthStore((state) => state.user);
   const { mutate: deleteComment } = useDeleteCommentMutation();

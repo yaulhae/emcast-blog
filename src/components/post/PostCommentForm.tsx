@@ -10,11 +10,11 @@ import { useState } from 'react';
 import { useCreateCommentMutation } from '../../hooks/useCommentQuery';
 import { useAuthStore } from '../../stores/authStore';
 
-interface CommentFormProps {
+interface PostCommentFormProps {
   postId: number;
 }
 
-export default function CommentForm({ postId }: CommentFormProps) {
+export default function PostCommentForm({ postId }: PostCommentFormProps) {
   const [content, setContent] = useState('');
   const { mutate, isPending } = useCreateCommentMutation();
   const user = useAuthStore((state) => state.user);

@@ -5,7 +5,7 @@ import AppRoutes from './routes/AppRoutes';
 import AppTheme from './shared-theme/AppTheme';
 import { useAuthStore } from './stores/authStore';
 
-function App(props: { disableCustomTheme?: boolean }) {
+function App() {
   const initializeUser = useAuthStore((state) => state.initializeUser);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ function App(props: { disableCustomTheme?: boolean }) {
   }, []);
   return (
     <>
-      <AppTheme {...props}>
+      <AppTheme>
         <CssBaseline enableColorScheme />
         <Header />
         <AppRoutes />

@@ -1,10 +1,7 @@
 // components/auth/AlreadyHaveAccountLink.tsx
 import { Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-
-interface AlreadyHaveAccountLinkProps {
-  mode: 'signup' | 'signin';
-}
+import { AlreadyHaveAccountLinkProps } from '../../types/auth';
 
 export default function AlreadyHaveAccountLink({
   mode

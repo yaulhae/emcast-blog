@@ -10,7 +10,6 @@ export default function HeaderNavs() {
         variant='text'
         color='info'
         size='small'
-        sx={{ minWidth: 0 }}
       >
         Posts
       </Button>
